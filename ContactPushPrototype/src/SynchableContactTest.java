@@ -7,7 +7,9 @@
  */
 
 import static org.junit.Assert.*;
+
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.junit.Test;
 
@@ -29,7 +31,7 @@ public class SynchableContactTest {
 
 	@Test
 	public void testUniqueness() {
-		HashMap<String,String> allContactIDs = new HashMap<String,String>();
+		HashMap<UUID,String> allContactIDs = new HashMap<UUID,String>();
 		
 		for( int i = 0; i < 10000; i++ ) {
 			SynchableContact hopeIsUnique = new SynchableContact();

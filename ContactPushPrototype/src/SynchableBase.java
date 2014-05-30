@@ -19,8 +19,8 @@ public abstract class SynchableBase {
 			this.uniqueID      = UUID.randomUUID();
 		}
 		
-		public String getSynchableId() {
-			return this.uniqueID.toString();
+		public UUID getSynchableId() {
+			return this.uniqueID;
 	    }
 		
 }

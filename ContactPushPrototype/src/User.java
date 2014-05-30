@@ -21,16 +21,10 @@ public class User {
 	/**
 	 * @return the unique userId
 	 */
-	public String getUserId() {
-		return uniqueID.toString();
+	public UUID getUserId() {
+		return uniqueID;
 	}
 
-	/**
-	 * @param uniqueID the uniqueID to set
-	 */
-	public void setUniqueID(UUID uniqueID) {
-		this.uniqueID = uniqueID;
-	}
 
 	/**
 	 * @return the userName
@@ -46,5 +40,12 @@ public class User {
 		this.userName = userName;
 	}
 	
-	
+	public User clone() {
+		
+			User copy = new User( this.userName );
+			copy.uniqueID = this.uniqueID;
+			copy.userName = this.userName;
+			return copy;
+		
+	}
 }

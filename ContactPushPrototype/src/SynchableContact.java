@@ -1,3 +1,5 @@
+import java.util.UUID;
+
 /**
  * 
  *  SynchableContact.java
@@ -11,6 +13,7 @@
  *
  */
 public class SynchableContact extends SynchableBase {
+	private UUID   uniqueId;
 	private String firstName;
 	private String lastName;
 	private String emailAddressWork;
@@ -19,6 +22,7 @@ public class SynchableContact extends SynchableBase {
 	private String phoneWork;
 	
 	public SynchableContact() {
+		this.uniqueId  = UUID.randomUUID();
 		this.firstName = "";
 		this.lastName = "";
 		this.emailAddressPersonal = "";
@@ -26,6 +30,10 @@ public class SynchableContact extends SynchableBase {
 	}
 
 
+	public UUID getUniqueId() {
+		return uniqueId;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
