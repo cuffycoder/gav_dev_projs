@@ -93,6 +93,18 @@ public class SynchableContact extends SynchableBase {
 		this.phoneWork = phoneWork;
 	}
 	
-	
+	public SynchableContact clone() {
+		SynchableContact copy = new SynchableContact();
+		
+		copy.emailAddressPersonal = this.emailAddressPersonal;
+		copy.emailAddressWork     = this.emailAddressWork;
+		copy.firstName            = this.firstName;
+		copy.lastName			  = this.lastName;
+		copy.phoneMobile          = this.phoneMobile;
+		copy.phoneWork            = this.phoneWork;
+		copy.uniqueId             = this.uniqueId;
+		
+		return copy;
+	}
 }
 

@@ -21,7 +21,7 @@ public class User {
 	/**
 	 * @return the unique userId
 	 */
-	public UUID getUserId() {
+	public UUID getUniqueId() {
 		return uniqueID;
 	}
 
