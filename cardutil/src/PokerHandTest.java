@@ -12,7 +12,7 @@ public class PokerHandTest {
 		
 		HashMap<String, String[][]> testHands = new HashMap<String, String[][]>();
 		
-		testHands.put( "Straight Flush", new String[][] {	
+		testHands.put( PokerHand.STRAIGHT_FLUSH, new String[][] {	
 				{ "AH",  "KH", "QH", "JH", "10H" },
 				{ "10H", "AH", "KH", "JH",  "QH" },
 				{ "AD",  "2D", "3D", "4D",  "5D" },
@@ -28,20 +28,26 @@ public class PokerHandTest {
 				{ "QD",  "KD", "AD", "10D", "JD" }
 		}  );
 		
-		testHands.put( "Full House", new String[][] {	
+		testHands.put( PokerHand.FOUR_OF_A_KIND, new String[][] {	
+				{ "AH",  "AD", "AS", "AC",  "KC" },
+				{ "2H",  "2C", "2D", "2S",  "JD" },
+
+		}  );
+		
+		testHands.put( PokerHand.FULL_HOUSE, new String[][] {	
 				{ "AH",  "AD", "AS", "KH",  "KC" },
 				{ "2H",  "2C", "2D", "JH",  "JD" },
 
 		}  );
 		
-		testHands.put( "Flush", new String[][] {	
+		testHands.put( PokerHand.FLUSH, new String[][] {	
 				{ "AH",  "KH", "QH", "JH",  "9H" },
 				{ "5H", "AH", "KH", "JH",  "QH" },
 				{ "AD",  "2D", "3D", "4D",  "6D" },
 				{ "2D",  "4D", "6D", "8D", "10D" },
 		}  );
 		
-		testHands.put( "Straight", new String[][] {	
+		testHands.put( PokerHand.STRAIGHT, new String[][] {	
 				{ "AH",  "KH", "QH", "JH", "10D" },
 				{ "AH",  "KH", "QH", "JC", "10D" },
 				{ "AH",  "KH", "QS", "JH", "10D" },
@@ -58,6 +64,8 @@ public class PokerHandTest {
 				{ "QD",  "KD", "9D", "10D", "JS" },
 				{ "QD",  "KD", "AD", "10D", "JC" }	
 		}  );
+		
+		//TODO: Add three of a kind, 2 pair, pair and high card
 		
 		testHands.forEach( ( handType, hands ) -> {
 			for( String[] cards : hands ) {
@@ -103,23 +111,46 @@ public class PokerHandTest {
 				{ "5H", "4H", "3H", "2H", "AS"  }, // lowest possible straight (ace is low)
 				
 				// Three of a Kind
+				{ "AH", "AS", "AD", "KC", "QC"  }, // highest possible 3 of a kind
+				{ "AH", "AS", "AD", "KC", "JC"  }, // check 2nd level kicker
+				{ "AH", "AS", "AD", "QC", "JC"  }, // check first level kicker
+				{ "KH", "KS", "KD", "AC", "QS"  }, // kicker should not override the value of the set
+				
+				{ "2H", "2S", "2C", "4C", "3S"  }, // lowest possible 3 of a kind
 				
 				// Two Pair
-				
+				{ "AC", "AS", "KC", "KS", "QH"  }, // highest possible two pair	
+				{ "AC", "AS", "KC", "KS", "JH"  }, // kicker
+				{ "KC", "KS", "QC", "QS", "AH"  }, // ensure kicker does not override pairs
+				{ "3C", "3H", "2C", "2S", "4S"  }, // lowest possible two pair
 			
 				// One pair
+				{ "AH", "AC", "KC", "QH", "JD"  }, // highest possible pair
+				{ "AH", "AC", "KC", "QH", "10D" }, // level 3 kicker
+				{ "AH", "AC", "KC", "JH", "10D" }, // level 2 kicker
+				{ "AH", "AC", "QC", "JH", "10D" }, // level 1 kicker
+				
+				{ "2D", "2C", "5C", "4D", "3S"  }, // lowest possible pair
 				
 				// High Card
+				{ "AH", "QS", "JD", "10D", "9C" }, // highest possible high card
+				{ "7H", "6H", "4D", "3C",  "2D" }, // lowest possible hand
 		};
 		
-		for( int i = 1; i < orderedHands.length; i++ ) {
-			PokerHand lowerHand  = new PokerHand( orderedHands[i][0], orderedHands[i][1], orderedHands[i][2], orderedHands[i][3], orderedHands[i][4] );
-			PokerHand higherHand = new PokerHand( orderedHands[i-1][0], orderedHands[i-1][1], orderedHands[i-1][2], orderedHands[i-1][3], orderedHands[i-1][4] );
-			
-			System.out.println( higherHand.toString() + "(" + higherHand.handType() + ") beats " + lowerHand.toString() + "(" + lowerHand.handType() + ")" );
-			
-			assertTrue( higherHand.getScore() > lowerHand.getScore() );
-		};	
+		PokerHand prevHand = null;
+		
+		for( String[] currHand : orderedHands ) {
+			if( null == prevHand ) {
+				prevHand = new PokerHand( currHand[0], currHand[1], currHand[2], currHand[3], currHand[4] );
+			}
+			else
+			{
+				PokerHand thisHand = new PokerHand( currHand[0], currHand[1], currHand[2], currHand[3], currHand[4] );
+				
+				System.out.println( prevHand.toString() + "(" + prevHand.handType() + ") beats " + thisHand.toString() + "(" + thisHand.handType() + ")" );
+				assertTrue( prevHand.getScore() > thisHand.getScore() );
+			}
+		}
 		
 		
 		// Check equivalent hand sets
