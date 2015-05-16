@@ -65,7 +65,17 @@ public class PokerHandTest {
 				{ "QD",  "KD", "AD", "10D", "JC" }	
 		}  );
 		
-		//TODO: Add three of a kind, 2 pair, pair and high card
+		testHands.put( PokerHand.THREE_OF_A_KIND, new String[][] {	
+				{ "AH",  "AC", "AS", "KH", "QC"  },
+				{ "AH",  "AC", "AS", "KH", "JC"  },
+				{ "AH",  "AC", "AS", "3H", "2C"  },
+				{ "2D",  "2C", "2D", "AH",  "KS" },
+				{ "2D",  "2C", "2D", "KH",  "QS" },
+				{ "2D",  "2C", "2D", "KH",  "3S" },
+				{ "2D",  "2C", "2D", "4H",  "3S" },
+		}  );
+		
+		//TODO: Add 2 pair, pair and high card
 		
 		testHands.forEach( ( handType, hands ) -> {
 			for( String[] cards : hands ) {
