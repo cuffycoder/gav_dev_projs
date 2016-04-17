@@ -15,7 +15,10 @@ public class TexasHoldEmHandTest {
 		
 		testHands.put( PokerHand.STRAIGHT_FLUSH, new String[][] {	
 				{ "KC", "AS",      "AH",  "KH", "QH", "JH", "10H" },
+				{ "KC", "AS",      "AD",  "KD", "QD", "JD", "10D" },
 				{ "2D", "7C",      "AH",  "KH", "QH", "JH", "10H" },
+				{ "10D", "KC",     "2H",  "3H", "4H", "5H", "6H"  },
+				{ "10D", "KC",     "AH",  "2H", "3H", "4H", "5H"  },
 				
 		}  );
 		
