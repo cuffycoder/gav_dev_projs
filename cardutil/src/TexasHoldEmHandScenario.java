@@ -4,6 +4,8 @@ public class TexasHoldEmHandScenario {
 
 	private int numPlayers;
 	private PlayingCard [][]knownPocketCards;
+	private int[] resultPlayerWinCounts;
+	
 	
 	public TexasHoldEmHandScenario( String [][]knownPocketCardsInput, int numPlayersInput ) {
 		knownPocketCards = new PlayingCard[ knownPocketCardsInput.length ][ 2 ];
@@ -34,6 +36,25 @@ public class TexasHoldEmHandScenario {
 		
 	}
 	
+	public int[] resultPlayerWinCountsGet() {
+		return resultPlayerWinCounts;
+	}
+	
+	public String scenarioDescription()
+	{
+		String desc = new String();
+		
+		desc += "Number of Players: " + numPlayers + "\n";
+		
+		desc += "Known pocket cards:\n";
+		
+		for( int i = 0; i < knownPocketCards.length; i++ )
+			desc += "Player " + i + ": " + knownPocketCards[ i ][0] + ", " + knownPocketCards[ i ][1] + "\n";
+		
+		
+		return desc;
+	}
+	
 	public void runSimulations( int numSimulations, boolean verbose ) {
 
 		PlayingCard [][]playersPocketCards = new PlayingCard[ numPlayers ][2];
@@ -43,13 +64,13 @@ public class TexasHoldEmHandScenario {
 		PlayingCard []communityCards = new PlayingCard[5];
 		PlayingCard [][]playersPocketAndCommunity = new PlayingCard[numPlayers][7];
 
-		int []winCounts = new int[ numPlayers ];
+		resultPlayerWinCounts = new int[ numPlayers ];
 		HashMap <String,Integer>handTypes = new HashMap<String,Integer>();
 		DeckOfCards deck = new DeckOfCards();
 
 		// initialize win stats
-		for( int i = 0; i < winCounts.length; i++ )
-			winCounts[i] = 0;
+		for( int i = 0; i < resultPlayerWinCounts.length; i++ )
+			resultPlayerWinCounts[i] = 0;
 		
 		System.out.printf( "Simulating %d hands with %d players\n", numSimulations, numPlayers );
 		System.out.printf( "Known pocket cards:\n" );
@@ -85,6 +106,7 @@ public class TexasHoldEmHandScenario {
 			}
 			
 			// deal community cards
+			// TODO: allow the community cards to be known/pre-set as well
 			communityCards[ 0 ] = deck.pop();
 			communityCards[ 1 ] = deck.pop();
 			communityCards[ 2 ] = deck.pop();
@@ -110,6 +132,7 @@ public class TexasHoldEmHandScenario {
 				playersPocketAndCommunity[player][ 5 ] = playersPocketCards[player][ 0 ];
 				playersPocketAndCommunity[player][ 6 ] = playersPocketCards[player][ 1 ];
 
+				// TODO: shouldn't allocate a new class each time
 				playersHands[ player ] = new TexasHoldEmHand( playersPocketAndCommunity[player] );
 				playersBestHands[player] = playersHands[player].bestHand();
 
@@ -133,7 +156,7 @@ public class TexasHoldEmHandScenario {
 			for( int player = 0; player < numPlayers; player++ )
 				if( playersBestHands[ player ].getScore() == winningScore )
 				{
-					winCounts[ player ]++;
+					resultPlayerWinCounts[ player ]++;
 					
 					if( verbose )
 						System.out.printf( "Player %d wins!\n", player );
@@ -145,10 +168,10 @@ public class TexasHoldEmHandScenario {
 
 		System.out.printf( "Win stats for (from %d simulations):\n", numSimulations );
 		
-		for( int player = 0; player < winCounts.length; player++ )
+		for( int player = 0; player < resultPlayerWinCounts.length; player++ )
 		{
 			System.out.printf( "Player %d: ", player );	
-			System.out.printf( "%04d  (%.2f%%)\n", winCounts[ player ], ( (float) winCounts[ player ] / (float) numSimulations ) * 100.0 );
+			System.out.printf( "%04d  (%.2f%%)\n", resultPlayerWinCounts[ player ], ( (float) resultPlayerWinCounts[ player ] / (float) numSimulations ) * 100.0 );
 		}
 		
 		
