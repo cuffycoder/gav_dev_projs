@@ -78,6 +78,11 @@ public class TexasHoldEmHandScenario {
 		for( int i = 0; i < knownPocketCards.length; i++ )
 			System.out.printf( "Player %d: %s %s\n", i, knownPocketCards[ i ][0], knownPocketCards[ i ][1] );
 		
+		// initialize the playersHands
+		for( int player = 0; player < numPlayers; player++ ) {
+			playersHands[ player ] = new TexasHoldEmHand();
+		}
+		
 		for( int gameNum = 0; gameNum < numSimulations; gameNum++ )
 		{
 			if( verbose )
@@ -133,7 +138,7 @@ public class TexasHoldEmHandScenario {
 				playersPocketAndCommunity[player][ 6 ] = playersPocketCards[player][ 1 ];
 
 				// TODO: shouldn't allocate a new class each time
-				playersHands[ player ] = new TexasHoldEmHand( playersPocketAndCommunity[player] );
+				playersHands[ player ].setCards( playersPocketAndCommunity[player] );
 				playersBestHands[player] = playersHands[player].bestHand();
 
 				if( verbose )

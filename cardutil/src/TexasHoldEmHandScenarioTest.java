@@ -15,7 +15,7 @@ public class TexasHoldEmHandScenarioTest {
 		
 		System.out.println( scenario.scenarioDescription() );
 		
-		scenario.runSimulations( 500000, false );
+		scenario.runSimulations( 50000, false );
 		
 		System.out.println( scenario.resultPlayerWinCountsGet() );
 	}

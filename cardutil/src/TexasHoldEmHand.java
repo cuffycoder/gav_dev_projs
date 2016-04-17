@@ -3,9 +3,18 @@ public class TexasHoldEmHand {
 
 	private PlayingCard []cards;
 	
+	public TexasHoldEmHand() {
+		cards = new PlayingCard[7];
+	}
+	
 	public TexasHoldEmHand( PlayingCard []cardsInput ) {
 		cards = new PlayingCard[ 7 ];
 		
+		for( int i = 0; i < cardsInput.length; i++ )
+			cards[ i ] = new PlayingCard( cardsInput[ i ].getNum(), cardsInput[ i ].getSuit() );		
+	}
+	
+	public void setCards( PlayingCard []cardsInput ) {
 		for( int i = 0; i < cardsInput.length; i++ )
 			cards[ i ] = new PlayingCard( cardsInput[ i ].getNum(), cardsInput[ i ].getSuit() );		
 	}
