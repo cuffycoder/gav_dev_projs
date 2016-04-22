@@ -231,24 +231,12 @@ public class testCards {
 				{ "AH", "KH" },
 				{ "2H", "2C" },
 		};
-	/*
-		TexasHoldEmHandScenario scenario = new TexasHoldEmHandScenario( new String[][] { { "AH", "KH" }, { "2H", "2C" } }, 2 );
-		scenario.runSimulations( 30000, false );
-		
-		System.out.println();
-		
-		scenario = new TexasHoldEmHandScenario( new String[][] { { "AH", "KH" } }, 2 );
-		scenario.runSimulations( 30000, false );
-		*/
-	System.out.println();
-		
-	TexasHoldEmHandScenario scenario = new TexasHoldEmHandScenario( new String[][] { { "AD", "KH" }, { "QS", "QC" } }, 2 );
-		scenario.runSimulations( 100000, false );
 	}
 	
 	/**
 	 * @param args
 	 */
+	@SuppressWarnings("unused")
 	public static void main(String[] args ) {
 		
 		if( false )
@@ -256,22 +244,6 @@ public class testCards {
 			testHandTypes();
 			testRankedHands();
 			testCardOrderEquivalence();
-		
-
-			PlayingCard []hand = {
-					new PlayingCard( "AH" ),
-					new PlayingCard( "KC" ),
-					new PlayingCard( "KH" ),
-					new PlayingCard( "QC" ),
-					new PlayingCard( "AC" ),
-					new PlayingCard( "2D" ),
-					new PlayingCard( "QH" ),
-			};
-
-			TexasHoldEmHand texasHand = new TexasHoldEmHand( hand );
-			PokerHand bestHand = texasHand.bestHand();
-
-			System.out.printf( "%s (%s)\n",bestHand.toString(), bestHand.handType() );
 		}
 		
 		playHoldEm();

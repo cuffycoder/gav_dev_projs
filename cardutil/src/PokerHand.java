@@ -31,11 +31,11 @@ public class PokerHand {
 	
 		cards = new PlayingCard[ 5 ];
 		
-		cards[ 0 ] = new PlayingCard( card1 );
-		cards[ 1 ] = new PlayingCard( card2 );
-		cards[ 2 ] = new PlayingCard( card3 );
-		cards[ 3 ] = new PlayingCard( card4 );
-		cards[ 4 ] = new PlayingCard( card5 );
+		cards[ 0 ] = PlayingCard.getInstance( card1 );
+		cards[ 1 ] = PlayingCard.getInstance( card2 );
+		cards[ 2 ] = PlayingCard.getInstance( card3 );
+		cards[ 3 ] = PlayingCard.getInstance( card4 );
+		cards[ 4 ] = PlayingCard.getInstance( card5 );
 		
 		setScore();
 	}
@@ -45,24 +45,24 @@ public class PokerHand {
 		cards = new PlayingCard[5];
 		
 		for( int i = 0; i < cardsInput.length; i++ )
-			cards[ i ] = new PlayingCard( cardsInput[i].getNum(), cardsInput[i].getSuit() );
+			cards[ i ] = cardsInput[i]; // new PlayingCard( cardsInput[i].getNum(), cardsInput[i].getSuit() );
 		
 		setScore();
 	}
 	
 	public void setHand( PlayingCard []cardsInput ) {
 		for( int i = 0; i < cardsInput.length; i++ )
-			cards[ i ].setCard( cardsInput[i].getNum(), cardsInput[i].getSuit() );
+			cards[ i ] = cardsInput[i]; //.setCard( cardsInput[i].getNum(), cardsInput[i].getSuit() );
 		
 		setScore();
 	}
 	
 	public void setHand( String card0, String card1, String card2, String card3, String card4 ) {
-		cards[ 0 ].setCard( card0 );
-		cards[ 1 ].setCard( card1 );
-		cards[ 2 ].setCard( card2 );
-		cards[ 3 ].setCard( card3 );
-		cards[ 4 ].setCard( card4 );
+		cards[ 0 ] = PlayingCard.getInstance( card0 );
+		cards[ 1 ] = PlayingCard.getInstance( card1 );
+		cards[ 2 ] = PlayingCard.getInstance( card2 );
+		cards[ 3 ] = PlayingCard.getInstance( card3 );
+		cards[ 4 ] = PlayingCard.getInstance( card4 );
 	}
 	
 	private void setScore() {

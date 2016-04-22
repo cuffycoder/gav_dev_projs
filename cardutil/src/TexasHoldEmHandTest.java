@@ -58,7 +58,7 @@ public class TexasHoldEmHandTest {
 			for( String[] cardsAsStrings : hands ) {
 				PlayingCard[] cards = new PlayingCard[7];
 				for( int i = 0; i < 7; i++ )
-					cards[i] =  new PlayingCard( cardsAsStrings[i] );
+					cards[i] =  PlayingCard.getInstance( cardsAsStrings[i] );
 					
 				TexasHoldEmHand hand = new TexasHoldEmHand( cards );
 				

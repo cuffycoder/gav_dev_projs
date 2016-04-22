@@ -13,8 +13,8 @@ public class TexasHoldEmHandScenario {
 		
 		for( int i = 0; i < knownPocketCardsInput.length; i++ )
 		{
-			knownPocketCards[ i ][ 0 ] = new PlayingCard( knownPocketCardsInput[ i ][ 0 ] );
-			knownPocketCards[ i ][ 1 ] = new PlayingCard( knownPocketCardsInput[ i ][ 1 ] );
+			knownPocketCards[ i ][ 0 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 0 ] );
+			knownPocketCards[ i ][ 1 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 1 ] );
 		};
 	}
 	
@@ -30,8 +30,8 @@ public class TexasHoldEmHandScenario {
 		
 		for( int i = 0; i < knownPocketCardsInput.length; i++ )
 		{
-			knownPocketCards[ i ][ 0 ] = new PlayingCard( knownPocketCardsInput[ i ][ 0 ] );
-			knownPocketCards[ i ][ 1 ] = new PlayingCard( knownPocketCardsInput[ i ][ 1 ] );
+			knownPocketCards[ i ][ 0 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 0 ] );
+			knownPocketCards[ i ][ 1 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 1 ] );
 		};
 		
 	}
@@ -95,8 +95,11 @@ public class TexasHoldEmHandScenario {
 			for( int pocketCardNum = 0; pocketCardNum < 2; pocketCardNum++ )
 				for( int player = 0; player < numPlayers; player++ )
 				{
-					if( player < knownPocketCards.length )
-						playersPocketCards[ player ][ pocketCardNum ] = deck.pop( knownPocketCards[ player ][ pocketCardNum ].getNum(), knownPocketCards[ player ][ pocketCardNum ].getSuit() );
+					if( player < knownPocketCards.length ) 
+					{
+						playersPocketCards[ player ][ pocketCardNum ] = knownPocketCards[ player ][ pocketCardNum ];
+						deck.excludeSpecificCard( knownPocketCards[ player ][ pocketCardNum ].toString() );
+					}
 					else
 						playersPocketCards[ player ][ pocketCardNum ] = deck.pop();
 					

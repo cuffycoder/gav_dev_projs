@@ -8,14 +8,14 @@ public class TexasHoldEmHandScenarioTest {
 	@Test
 	public void testScenarioBasic() {
 		TexasHoldEmHandScenario scenario = new TexasHoldEmHandScenario();
-		String [][] knownPocketCards = { { "AH", "AS" }, { "2C", "7S" } };
+		String [][] knownPocketCards = { { "AH", "AS" }, { "2C", "7D" } };
 		
 		scenario.setNumPlayers(2);
 		scenario.setKnownPocketCards(  knownPocketCards );
 		
 		System.out.println( scenario.scenarioDescription() );
 		
-		scenario.runSimulations( 50000, false );
+		scenario.runSimulations( 1000000, false );
 		
 		System.out.println( scenario.resultPlayerWinCountsGet() );
 	}

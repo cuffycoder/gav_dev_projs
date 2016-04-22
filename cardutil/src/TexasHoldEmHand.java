@@ -11,14 +11,17 @@ public class TexasHoldEmHand {
 		cards = new PlayingCard[ 7 ];
 		
 		for( int i = 0; i < cardsInput.length; i++ )
-			cards[ i ] = new PlayingCard( cardsInput[ i ].getNum(), cardsInput[ i ].getSuit() );		
+			cards[ i ] = cardsInput[i]; 
 	}
 	
 	public void setCards( PlayingCard []cardsInput ) {
 		for( int i = 0; i < cardsInput.length; i++ )
-			cards[ i ] = new PlayingCard( cardsInput[ i ].getNum(), cardsInput[ i ].getSuit() );		
+			cards[ i ] = cardsInput[i]; 		
 	}
 	
+	/*
+	 * bestHand() - given 7 cards (2 pocket and 5 community) calculates the best hand
+	 */
 	public PokerHand bestHand() {
 		PokerHand bestSoFar = null;
 		PokerHand currHand  = null;
@@ -32,7 +35,7 @@ public class TexasHoldEmHand {
 				for( int c = 0; c < cards.length; c++ )
 				{
 					if( c != i && c != j )
-						cardsInHand[ h++ ] = new PlayingCard( cards[ c ].getNum(), cards[ c ].getSuit() );
+						cardsInHand[ h++ ] = cards[ c ];
 				}
 
 				if( currHand == null )
