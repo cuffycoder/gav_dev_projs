@@ -8,9 +8,9 @@ public class TexasHoldEmHandScenarioTest {
 	@Test
 	public void testScenarioBasic() {
 		TexasHoldEmHandScenario scenario = new TexasHoldEmHandScenario();
-		String [][] knownPocketCards = { { "AH", "AS" }, { "2C", "7D" } };
+		String [][] knownPocketCards = { { "KC", "QS" }, { "KD", "JD" }, { "10S", "9S" } };
 		
-		scenario.setNumPlayers(2);
+		scenario.setNumPlayers(3);
 		scenario.setKnownPocketCards(  knownPocketCards );
 		
 		System.out.println( scenario.scenarioDescription() );

@@ -58,7 +58,7 @@ public class TexasHoldEmHandScenario {
 	public void runSimulations( int numSimulations, boolean verbose ) {
 
 		PlayingCard [][]playersPocketCards = new PlayingCard[ numPlayers ][2];
-		TexasHoldEmHand []playersHands = new TexasHoldEmHand[ numPlayers ];
+		TexasHoldEmPlayerHand []playersHands = new TexasHoldEmPlayerHand[ numPlayers ];
 		PokerHand []playersBestHands = new PokerHand[ numPlayers ];
 		
 		PlayingCard []communityCards = new PlayingCard[5];
@@ -80,7 +80,7 @@ public class TexasHoldEmHandScenario {
 		
 		// initialize the playersHands
 		for( int player = 0; player < numPlayers; player++ ) {
-			playersHands[ player ] = new TexasHoldEmHand();
+			playersHands[ player ] = new TexasHoldEmPlayerHand();
 		}
 		
 		for( int gameNum = 0; gameNum < numSimulations; gameNum++ )

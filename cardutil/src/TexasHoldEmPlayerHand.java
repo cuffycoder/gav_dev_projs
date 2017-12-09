@@ -1,13 +1,13 @@
 
-public class TexasHoldEmHand {
+public class TexasHoldEmPlayerHand {
 
 	private PlayingCard []cards;
 	
-	public TexasHoldEmHand() {
+	public TexasHoldEmPlayerHand() {
 		cards = new PlayingCard[7];
 	}
 	
-	public TexasHoldEmHand( PlayingCard []cardsInput ) {
+	public TexasHoldEmPlayerHand( PlayingCard []cardsInput ) {
 		cards = new PlayingCard[ 7 ];
 		
 		for( int i = 0; i < cardsInput.length; i++ )

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.junit.Test;
 
 
-public class TexasHoldEmHandTest {
+public class TexasHoldEmPlayerHandTest {
 
 	@Test
 	
@@ -60,7 +60,7 @@ public class TexasHoldEmHandTest {
 				for( int i = 0; i < 7; i++ )
 					cards[i] =  PlayingCard.getInstance( cardsAsStrings[i] );
 					
-				TexasHoldEmHand hand = new TexasHoldEmHand( cards );
+				TexasHoldEmPlayerHand hand = new TexasHoldEmPlayerHand( cards );
 				
 				System.out.println( hand.toString() + ".handType() == " + handType );
 				assertEquals( handType, hand.bestHand().handType() );
