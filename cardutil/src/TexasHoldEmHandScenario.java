@@ -4,8 +4,8 @@ public class TexasHoldEmHandScenario {
 
 	private int numPlayers;
 	private PlayingCard [][]knownPocketCards;
-	private int[] resultPlayerWinCounts;
 	
+	private TexasHoldEmHandScenarioPlayerStats[] playerStats;	
 	
 	public TexasHoldEmHandScenario( String [][]knownPocketCardsInput, int numPlayersInput ) {
 		knownPocketCards = new PlayingCard[ knownPocketCardsInput.length ][ 2 ];
@@ -16,29 +16,12 @@ public class TexasHoldEmHandScenario {
 			knownPocketCards[ i ][ 0 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 0 ] );
 			knownPocketCards[ i ][ 1 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 1 ] );
 		};
-	}
-	
-	public TexasHoldEmHandScenario() {
+
+		playerStats = new TexasHoldEmHandScenarioPlayerStats[ numPlayers ];
+		for( int player = 0; player < numPlayers; player++ )
+			playerStats[ player ] = new TexasHoldEmHandScenarioPlayerStats();
 	}
 
-	public void setNumPlayers( int numPlayersInput ) {
-		numPlayers = numPlayersInput;
-	}
-	
-	public void setKnownPocketCards( String [][]knownPocketCardsInput ) {
-		knownPocketCards = new PlayingCard[ knownPocketCardsInput.length ][ 2 ];
-		
-		for( int i = 0; i < knownPocketCardsInput.length; i++ )
-		{
-			knownPocketCards[ i ][ 0 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 0 ] );
-			knownPocketCards[ i ][ 1 ] = PlayingCard.getInstance( knownPocketCardsInput[ i ][ 1 ] );
-		};
-		
-	}
-	
-	public int[] resultPlayerWinCountsGet() {
-		return resultPlayerWinCounts;
-	}
 	
 	public String scenarioDescription()
 	{
@@ -64,19 +47,18 @@ public class TexasHoldEmHandScenario {
 		PlayingCard []communityCards = new PlayingCard[5];
 		PlayingCard [][]playersPocketAndCommunity = new PlayingCard[numPlayers][7];
 
-		resultPlayerWinCounts = new int[ numPlayers ];
 		HashMap <String,Integer>handTypes = new HashMap<String,Integer>();
 		DeckOfCards deck = new DeckOfCards();
-
-		// initialize win stats
-		for( int i = 0; i < resultPlayerWinCounts.length; i++ )
-			resultPlayerWinCounts[i] = 0;
 		
 		System.out.printf( "Simulating %d hands with %d players\n", numSimulations, numPlayers );
 		System.out.printf( "Known pocket cards:\n" );
 
 		for( int i = 0; i < knownPocketCards.length; i++ )
 			System.out.printf( "Player %d: %s %s\n", i, knownPocketCards[ i ][0], knownPocketCards[ i ][1] );
+		
+		// initialize the playerStats
+		for( int player = 0; player < numPlayers; player++ )
+			playerStats[player].initializeStats();
 		
 		// initialize the playersHands
 		for( int player = 0; player < numPlayers; player++ ) {
@@ -147,27 +129,37 @@ public class TexasHoldEmHandScenario {
 				if( verbose )
 					System.out.printf( "Player %d best hand: %s (%s)\n", player, playersBestHands[player].toString(), playersBestHands[player].handType() );
 			}
-
-			/*
-			if( handTypes.containsKey( myBestHand.handType() ) )
-				handTypes.put( myBestHand.handType(), handTypes.get( myBestHand.handType() ) + 1 );
-			else
-				handTypes.put( myBestHand.handType(), 1 );
-			*/
+			
 			// find the winner
 			long winningScore = 0;
+			int  numWinners   = 0;
 			
 			for( int player = 0; player < numPlayers; player++ )
 				if( winningScore < playersBestHands[ player ].getScore() )
-					winningScore = playersBestHands[ player ].getScore();
+				{
+					winningScore = playersBestHands[ player ].getScore();		
+					numWinners   = 1;
+				}
+				else
+				{
+					if( winningScore == playersBestHands[ player ].getScore() )
+						numWinners++;
+				}
 			
 			for( int player = 0; player < numPlayers; player++ )
 				if( playersBestHands[ player ].getScore() == winningScore )
 				{
-					resultPlayerWinCounts[ player ]++;
+					if( numWinners == 1 )
+						playerStats[ player ].recordResult( TexasHoldEmHandScenarioPlayerStats.PLAYER_STAT_WIN, playersBestHands[ player ] );
+					else
+						playerStats[ player ].recordResult( TexasHoldEmHandScenarioPlayerStats.PLAYER_STAT_PUSH, playersBestHands[ player ] );
 					
 					if( verbose )
 						System.out.printf( "Player %d wins!\n", player );
+				}
+				else
+				{
+					playerStats[ player ].recordResult( TexasHoldEmHandScenarioPlayerStats.PLAYER_STAT_LOSE, playersBestHands[ player ] );
 				}
 			
 			if( verbose )
@@ -176,10 +168,11 @@ public class TexasHoldEmHandScenario {
 
 		System.out.printf( "Win stats for (from %d simulations):\n", numSimulations );
 		
-		for( int player = 0; player < resultPlayerWinCounts.length; player++ )
+		for( int player = 0; player < numPlayers; player++ )
 		{
-			System.out.printf( "Player %d: ", player );	
-			System.out.printf( "%04d  (%.2f%%)\n", resultPlayerWinCounts[ player ], ( (float) resultPlayerWinCounts[ player ] / (float) numSimulations ) * 100.0 );
+			System.out.printf( "\n\nPlayer %d: ", player );	
+			playerStats[ player ].printStats();
+			
 		}
 		
 		

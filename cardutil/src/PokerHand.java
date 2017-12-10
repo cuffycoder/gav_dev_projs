@@ -26,6 +26,7 @@ public class PokerHand {
 	static final String PAIR              = "Pair";
 	static final String HIGH_CARD         = "High";
 	 
+	static final String[] PokerHandTypes = { STRAIGHT_FLUSH, FOUR_OF_A_KIND, FULL_HOUSE, FLUSH, STRAIGHT, THREE_OF_A_KIND, TWO_PAIR, PAIR, HIGH_CARD };
 	
 	public PokerHand( String card1, String card2, String card3, String card4, String card5 ) {
 	
