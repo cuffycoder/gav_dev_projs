@@ -63,6 +63,8 @@ public class TexasHoldEmHandScenarioPlayerStats {
 		Integer totalPush = 0;
 		Integer totalLose = 0;
 		
+		System.out.printf( "%15s : %10s %10s %10s\n", "", PLAYER_STAT_WIN, PLAYER_STAT_PUSH, PLAYER_STAT_LOSE );
+
 		for( String handType : PokerHand.PokerHandTypes ) 
 		{
 			HashMap<String,Integer> statsForHandType = playerStats.get( handType );
@@ -70,9 +72,13 @@ public class TexasHoldEmHandScenarioPlayerStats {
 			totalPush += statsForHandType.get(PLAYER_STAT_PUSH);
 			totalLose += statsForHandType.get(PLAYER_STAT_LOSE);
 			
-			System.out.println( handType + " : " + statsForHandType.get(PLAYER_STAT_WIN).toString() + " ; " + statsForHandType.get(PLAYER_STAT_PUSH).toString() + " ; " + statsForHandType.get( PLAYER_STAT_LOSE ).toString()  );
+			System.out.printf( "%15s : %10d %10d %10d\n", handType, statsForHandType.get(PLAYER_STAT_WIN), statsForHandType.get(PLAYER_STAT_PUSH), statsForHandType.get(PLAYER_STAT_LOSE) );
 		}
 		
-		System.out.println( "TOTAL : " + totalWin.toString() + " ; " + totalPush.toString() + " ; " + totalLose.toString() + "\n"  );
+		System.out.printf( "%15s : %10d %10d %10d\n", "TOTAL", totalWin, totalPush, totalLose );
+		System.out.printf( "%15s : %10.2f %10.2f %10.2f\n", "%", ( (double) totalWin / ( totalWin + totalPush + totalLose) * 100.0 ), 
+															( (double) totalPush / ( totalWin + totalPush + totalLose) * 100.0 ), 
+															( (double) totalLose / ( totalWin + totalPush + totalLose) * 100.0 ));
+
 	}
 }

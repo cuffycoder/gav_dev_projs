@@ -170,7 +170,7 @@ public class TexasHoldEmHandScenario {
 		
 		for( int player = 0; player < numPlayers; player++ )
 		{
-			System.out.printf( "\n\nPlayer %d: ", player );	
+			System.out.printf( "\n\nPlayer %d: \n", player );	
 			playerStats[ player ].printStats();
 			
 		}
