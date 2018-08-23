@@ -16,7 +16,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>HelloWorld Jersey Service </servlet-name>
-		<url-pattern>/thisthat/* </url-pattern>
+		<url-pattern>/TalkToMe/* </url-pattern>
 	</servlet-mapping>
 
 </web-app>
