@@ -13,7 +13,7 @@ public class MyJerseyPage {
 	public String sayHtmlHello( @QueryParam("yourName") String yourName, @QueryParam("yourLocation") String yourLocation ) {
 		return "Wha a gwaan, " + yourName + " in " + yourLocation + "?";
 		
-		//http://localhost:8080/my-first-rest-service/thisthat/hello?yourName=Gavin&yourLocation=NJ
+		//http://localhost:8080/my-first-rest-service/TalkToMe/hello?yourName=Gavin&yourLocation=NJ
 	}
 	
 }
